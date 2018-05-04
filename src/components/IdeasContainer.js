@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import Idea from './Idea'
+
 
 class IdeasContainer extends Component {
   
@@ -18,13 +20,19 @@ class IdeasContainer extends Component {
     })
     .catch(error => console.log(error))
   }
-  
+
   render() {
-    return (
+    return(
       <div>
-        Ideas
+        {this.state.ideas.map((idea) => {
+          return (<Idea idea={idea} key={idea.id} />)
+        })}
+        <button className="newIdeaButton">
+          New Idea
+        </button>
       </div>
     )
+
   }
 }
 
