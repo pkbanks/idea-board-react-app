@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 
 class Idea extends Component {
 
+  handleDelete = () => {
+    this.props.onDelete(this.props.idea.id)
+  }
+
   handleClick = () => {
     this.props.onClick(this.props.idea.id)
   }
@@ -9,6 +13,9 @@ class Idea extends Component {
   render () {
     return(
       <div className="tile">
+        <span className="deleteButton" onClick={this.handleDelete}>
+          x
+        </span>
         <h4 onClick={this.handleClick}>
           {this.props.idea.title}
         </h4>

@@ -69,6 +69,16 @@ class IdeasContainer extends Component {
       () => { this.title.focus() })
   }
 
+  deleteIdea = (id) => {
+    axios.delete(`http://localhost:3001/api/v1/ideas/${id}`)
+    .then(response => {
+      const ideaIndex = this.state.ideas.findIndex(x => x.id === id)
+      const ideas = update(this.state.ideas, { $splice: [[ideaIndex, 1]]})
+      this.setState({ideas: ideas})
+    })
+    .catch(error => console.log(error))
+  }
+
   render() {
     return(
       <div>
@@ -81,7 +91,8 @@ class IdeasContainer extends Component {
               titleRef= {input => this.title = input}
               resetNotification={this.resetNotification} />)
           } else {
-            return (<Idea idea={idea} key={idea.id} onClick={this.enableEditing} />)
+            return (<Idea idea={idea} key={idea.id} onClick={this.enableEditing} onDelete={this.deleteIdea} 
+              />)
           }
         })}
         <button className="newIdeaButton" onClick={this.addNewIdea} >
